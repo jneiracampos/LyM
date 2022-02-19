@@ -98,13 +98,52 @@ def _p(cadena):
 
 def lectura(archivo):
 
-    with open(str(archivo)) as file:
-        lines = [line.rstrip() for ]
-
-
     file = open(str(archivo) + 'r')
-    file.readline()
+
+    cadena = []
+    lineas = file.read().splitlines()
+    for linea in lineas:
+        auxiliar = linea.split()
+        for palabra in auxiliar:
+            caracteres = list(palabra)
+            for caracter in caracteres:
+                if '(' == caracter:
+                    cadena.append(caracter)
+                if ':' == caracter:
+                    cadena.append(caracter)
+            if '(' in palabra:
+                nueva = palabra.strip('(')
+                if ':' in palabra:
+                    nueva1 = nueva.strip(':')
+                    if ')' in palabra:
+                        nueva2 = nueva1.strip(')')
+                        cadena.append(nueva2)
+                    else:
+                        cadena.append(nueva1)
+                elif ')' in palabra:
+                    nueva1 = nueva.strip(')')
+                    cadena.append(nueva1)
+                else:
+                    cadena.append(nueva)
+            elif ':' in palabra:
+                nueva = palabra.strip(':')
+                if ')' in palabra:
+                    nueva1 = nueva.strip(')')
+                    cadena.append(nueva1)
+                else:
+                    cadena.append(nueva)
+            elif ')' in palabra:
+                nueva = palabra.strip(')')
+                cadena.append(nueva)
+            else:
+                cadena.append(palabra)
+            for caracter in caracteres:
+                if ')' in caracter:
+                    cadena.append(')')
+
     file.close()
+
+    return cadena
 
 
 def implementar(cadena):
