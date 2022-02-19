@@ -230,7 +230,7 @@ def run_dirs(cadena, indice):
 def move_face(cadena, indice):
 
     fbf = 0
-    evaluar = ['move-dir']
+    evaluar = ['move-face']
 
     for i in range(1, 5):
         sub_indice = indice + i
@@ -371,9 +371,45 @@ def implementar(archivo):
         elif cadena[indice] == ')':
             parentesisD += 1
         elif cadena[indice] == 'defvar':
-            defvar(cadena, indice)
+            retorno = defvar(cadena, indice)
+            retorno[0] = sintaxis 
+        elif cadena[indice] == '=':
+            retorno = equals(cadena, indice)
+            retorno[0] = sintaxis
+        elif cadena[indice] == 'move':
+            retorno = move(cadena, indice)
+            retorno[0] = sintaxis
+        elif cadena[indice] == 'turn':
+            retorno = turn(cadena, indice)
+            retorno[0] = sintaxis
+        elif cadena[indice] == 'face':
+            retorno = face(cadena, indice)
+            retorno[0] = sintaxis
+        elif cadena[indice] == 'put':
+            retorno = put(cadena, indice)
+            retorno[0] = sintaxis
+        elif cadena[indice] == 'pick':
+            retorno = pick(cadena, indice)
+            retorno[0] = sintaxis
+        elif cadena[indice] == 'move-dir':
+            retorno = move_dir(cadena, indice)
+            retorno[0] = sintaxis
+        elif cadena[indice] == 'run-dirs':
+            retorno = run_dirs(cadena, indice)
+            retorno[0] = sintaxis
+        elif cadena[indice] == 'move-face':
+            retorno = move_face(cadena, indice)
+            retorno[0] = sintaxis
+        elif cadena[indice] == 'skip':
+            retorno = skip(cadena, indice)
+            retorno[0] = sintaxis
 
     if parentesisI == parentesisD:
         sintaxis = 1
 
-    return sintaxis
+    if sintaxis == 0:
+        mensaje = 'Hay un problema de sintaxis en el código'
+    else:
+        mensaje = 'El código se compiló correctamente'
+
+    return mensaje
