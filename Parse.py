@@ -89,12 +89,11 @@ def _p(cadena):
     pass
 
 
-# Implementación
+# Implementación de los métodos anteriores
 
 
 def lectura(archivo):
 
-    with open(str(archivo)) as file:
     file = open(str(archivo) + 'r')
     cadena = []
     lineas = file.read().splitlines()
