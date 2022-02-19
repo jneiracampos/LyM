@@ -117,26 +117,34 @@ def lectura(archivo):
                     nueva1 = nueva.strip(':')
                     if ')' in palabra:
                         nueva2 = nueva1.strip(')')
-                        cadena.append(nueva2)
+                        if nueva2 != '':
+                            cadena.append(nueva2)
                     else:
-                        cadena.append(nueva1)
+                        if nueva1 != '':
+                            cadena.append(nueva1)
                 elif ')' in palabra:
                     nueva1 = nueva.strip(')')
-                    cadena.append(nueva1)
+                    if nueva1 != '':
+                        cadena.append(nueva1)
                 else:
-                    cadena.append(nueva)
+                    if nueva != '':
+                        cadena.append(nueva)
             elif ':' in palabra:
                 nueva = palabra.strip(':')
                 if ')' in palabra:
                     nueva1 = nueva.strip(')')
-                    cadena.append(nueva1)
+                    if nueva1 != '':
+                        cadena.append(nueva1)
                 else:
-                    cadena.append(nueva)
+                    if nueva != '':
+                        cadena.append(nueva)
             elif ')' in palabra:
                 nueva = palabra.strip(')')
-                cadena.append(nueva)
+                if nueva != '':
+                    cadena.append(nueva)
             else:
-                cadena.append(palabra)
+                if palabra != '':
+                    cadena.append(palabra)
             for caracter in caracteres:
                 if ')' in caracter:
                     cadena.append(')')
