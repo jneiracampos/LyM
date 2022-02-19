@@ -30,62 +30,73 @@ def defvar(cadena, indice):
 
     fbf = 0
     evaluar = ['defvar']
+    restante = len(cadena) - (indice + 1)
 
-    for i in range(1, 4):
-        sub_indice = indice + i
-        ins = cadena[sub_indice]
-        evaluar.append(ins)
+    if restante >= 3:
+        for i in range(1, 4):
+            sub_indice = indice + i
+            ins = cadena[sub_indice]
+            evaluar.append(ins)
 
-    nombre_variable = evaluar[1]
+        nombre_variable = evaluar[1]
+        sintaxis = ['defvar', nombre_variable, numeros, ')']
 
-    sintaxis = ['defvar', nombre_variable, numeros, ')']
+        if len(evaluar) == 4:
+            if evaluar[3] == sintaxis[3]:
+                for numero in numeros:
+                    if numero in evaluar[2]:
+                        fbf = 1
+                        break
 
-    if evaluar[3] == sintaxis[3]:
-        for numero in numeros:
-            if numero in evaluar[2]:
-                fbf = 1
-
-    return fbf, nombre_variable
+    return fbf
 
 
 def equals(cadena, indice):
 
     fbf = 0
     evaluar = ['=']
+    restante = len(cadena) - (indice + 1)
 
-    for i in range(1, 4):
-        sub_indice = indice + i
-        ins = cadena[sub_indice]
-        evaluar.append(ins)
+    if restante >= 3:
+        for i in range(1, 4):
+            sub_indice = indice + i
+            ins = cadena[sub_indice]
+            evaluar.append(ins)
 
-    nombre_variable = evaluar[1]
+        nombre_variable = evaluar[1]
 
-    sintaxis = ['=', nombre_variable, numeros, ')']
+        sintaxis = ['=', nombre_variable, numeros, ')']
 
-    if evaluar[3] == sintaxis[3]:
-        for numero in numeros:
-            if numero in evaluar[2]:
-                fbf = 1
+        if len(evaluar) == 4:
+            if evaluar[3] == sintaxis[3]:
+                for numero in numeros:
+                    if numero in evaluar[2]:
+                        fbf = 1
+                        break
 
-    return fbf, nombre_variable
+    return fbf
 
 
 def move(cadena, indice):
 
     fbf = 0
     evaluar = ['move']
+    restante = len(cadena) - (indice + 1)
 
-    for i in range(1, 3):
-        sub_indice = indice + i
-        ins = cadena[sub_indice]
-        evaluar.append(ins)
+    if restante >= 2:
+        for i in range(1, 3):
+            sub_indice = indice + i
+            ins = cadena[sub_indice]
+            evaluar.append(ins)
 
-    sintaxis = ['move', numeros, ')']
+        sintaxis = ['move', numeros, ')']
 
-    if evaluar[2] == sintaxis[2]:
-        for numero in numeros:
-            if numero in evaluar[1]:
-                fbf = 1
+        if len(evaluar) == 3:
+            if evaluar[2] == sintaxis[2]:
+                for numero in numeros:
+                    if numero in evaluar[1]:
+                        fbf = 1
+                        break
 
     return fbf
 
@@ -94,19 +105,23 @@ def turn(cadena, indice):
 
     fbf = 0
     evaluar = ['turn']
+    restante = len(cadena) - (indice + 1)
 
-    for i in range(1, 4):
-        sub_indice = indice + i
-        ins = cadena[sub_indice]
-        evaluar.append(ins)
+    if restante >= 3:
+        for i in range(1, 4):
+            sub_indice = indice + i
+            ins = cadena[sub_indice]
+            evaluar.append(ins)
 
-    sintaxis = ['turn', ':', turn_to, ')']
+        sintaxis = ['turn', ':', turn_to, ')']
 
-    if evaluar[1] == sintaxis[1]:
-        if evaluar[3] == sintaxis[3]:
-            for turn in turn_to:
-                if turn in evaluar[2]:
-                    fbf = 1
+        if len(evaluar) == 4:
+            if evaluar[1] == sintaxis[1]:
+                if evaluar[3] == sintaxis[3]:
+                    for turn in turn_to:
+                        if turn in evaluar[2]:
+                            fbf = 1
+                            break
 
     return fbf
 
@@ -115,19 +130,22 @@ def face(cadena, indice):
 
     fbf = 0
     evaluar = ['face']
+    restante = len(cadena) - (indice + 1)
 
-    for i in range(1, 4):
-        sub_indice = indice + i
-        ins = cadena[sub_indice]
-        evaluar.append(ins)
+    if restante >= 3:
+        for i in range(1, 4):
+            sub_indice = indice + i
+            ins = cadena[sub_indice]
+            evaluar.append(ins)
 
-    sintaxis = ['face', ':', face_to, ')']
+        sintaxis = ['face', ':', face_to, ')']
 
-    if evaluar[1] == sintaxis[1]:
-        if evaluar[3] == sintaxis[3]:
-            for turn in face_to:
-                if turn in evaluar[2]:
-                    fbf = 1
+        if len(evaluar) == 4:
+            if evaluar[1] == sintaxis[1]:
+                if evaluar[3] == sintaxis[3]:
+                    for turn in face_to:
+                        if turn in evaluar[2]:
+                            fbf = 1
 
     return fbf
 
@@ -136,22 +154,25 @@ def put(cadena, indice):
 
     fbf = 0
     evaluar = ['put']
+    restante = len(cadena) - (indice + 1)
 
-    for i in range(1, 4):
-        sub_indice = indice + i
-        ins = cadena[sub_indice]
-        evaluar.append(ins)
+    if restante >= 3:
+        for i in range(1, 4):
+            sub_indice = indice + i
+            ins = cadena[sub_indice]
+            evaluar.append(ins)
 
-    sintaxis = ['put', objects, numeros, ')']
+        sintaxis = ['put', objects, numeros, ')']
 
-    if evaluar[3] == sintaxis[3]:
-        for element in objects:
-            if evaluar[1] == element:
-                for numero in numeros:
-                    if numero in evaluar[2]:
-                        fbf = 1
-                        break
-            break
+        if len(evaluar) == 4:
+            if evaluar[3] == sintaxis[3]:
+                for element in objects:
+                    if evaluar[1] == element:
+                        for numero in numeros:
+                            if numero in evaluar[2]:
+                                fbf = 1
+                                break
+                    break
 
     return fbf
 
@@ -160,22 +181,25 @@ def pick(cadena, indice):
 
     fbf = 0
     evaluar = ['pick']
+    restante = len(cadena) - (indice + 1)
 
-    for i in range(1, 4):
-        sub_indice = indice + i
-        ins = cadena[sub_indice]
-        evaluar.append(ins)
+    if restante >= 3:
+        for i in range(1, 4):
+            sub_indice = indice + i
+            ins = cadena[sub_indice]
+            evaluar.append(ins)
 
-    sintaxis = ['pick', objects, numeros, ')']
+        sintaxis = ['pick', objects, numeros, ')']
 
-    if evaluar[3] == sintaxis[3]:
-        for element in objects:
-            if evaluar[1] == element:
-                for numero in numeros:
-                    if numero in evaluar[2]:
-                        fbf = 1
-                        break
-            break
+        if len(evaluar) == 4:
+            if evaluar[3] == sintaxis[3]:
+                for element in objects:
+                    if evaluar[1] == element:
+                        for numero in numeros:
+                            if numero in evaluar[2]:
+                                fbf = 1
+                                break
+                    break
 
     return fbf
 
@@ -184,23 +208,26 @@ def move_dir(cadena, indice):
 
     fbf = 0
     evaluar = ['move-dir']
+    restante = len(cadena) - (indice + 1)
 
-    for i in range(1, 5):
-        sub_indice = indice + i
-        ins = cadena[sub_indice]
-        evaluar.append(ins)
+    if restante >= 4:
+        for i in range(1, 5):
+            sub_indice = indice + i
+            ins = cadena[sub_indice]
+            evaluar.append(ins)
 
-    sintaxis = ['move-dir', numeros, ':', dir, ')']
+        sintaxis = ['move-dir', numeros, ':', dir, ')']
 
-    if evaluar[2] == sintaxis[2]:
-        if evaluar[4] == sintaxis[4]:
-            for numero in numeros:
-                if numero in evaluar[1]:
-                    for element in dir:
-                        if evaluar[3] == element:
-                            fbf = 1
-                            break
-                break
+        if len(evaluar) == 5:
+            if evaluar[2] == sintaxis[2]:
+                if evaluar[4] == sintaxis[4]:
+                    for numero in numeros:
+                        if numero in evaluar[1]:
+                            for element in dir:
+                                if evaluar[3] == element:
+                                    fbf = 1
+                                    break
+                        break
 
     return fbf
 
@@ -209,20 +236,23 @@ def run_dirs(cadena, indice):
 
     fbf = 0
     evaluar = ['run-dirs']
+    restante = len(cadena) - (indice + 1)
 
-    for i in range(1, 4):
-        sub_indice = indice + i
-        ins = cadena[sub_indice]
-        evaluar.append(ins)
+    if restante >= 3:
+        for i in range(1, 4):
+            sub_indice = indice + i
+            ins = cadena[sub_indice]
+            evaluar.append(ins)
 
-    sintaxis = ['run-dirs', ':', dir, ')']
+        sintaxis = ['run-dirs', ':', dir, ')']
 
-    if evaluar[1] == sintaxis[1]:
-        if evaluar[3] == sintaxis[3]:
-            for element in dir:
-                if evaluar[2] == element:
-                    fbf = 1
-                    break
+        if len(evaluar) == 4:
+            if evaluar[1] == sintaxis[1]:
+                if evaluar[3] == sintaxis[3]:
+                    for element in dir:
+                        if evaluar[2] == element:
+                            fbf = 1
+                            break
 
     return fbf
 
@@ -231,23 +261,26 @@ def move_face(cadena, indice):
 
     fbf = 0
     evaluar = ['move-face']
+    restante = len(cadena) - (indice + 1)
 
-    for i in range(1, 5):
-        sub_indice = indice + i
-        ins = cadena[sub_indice]
-        evaluar.append(ins)
+    if restante >= 4:
+        for i in range(1, 5):
+            sub_indice = indice + i
+            ins = cadena[sub_indice]
+            evaluar.append(ins)
 
-    sintaxis = ['move-face', numeros, ':', face_to, ')']
+        sintaxis = ['move-face', numeros, ':', face_to, ')']
 
-    if evaluar[2] == sintaxis[2]:
-        if evaluar[4] == sintaxis[4]:
-            for numero in numeros:
-                if numero in evaluar[1]:
-                    for element in face_to:
-                        if evaluar[3] == element:
-                            fbf = 1
-                            break
-                break
+        if len(evaluar) == 5:
+            if evaluar[2] == sintaxis[2]:
+                if evaluar[4] == sintaxis[4]:
+                    for numero in numeros:
+                        if numero in evaluar[1]:
+                            for element in face_to:
+                                if evaluar[3] == element:
+                                    fbf = 1
+                                    break
+                        break
 
     return fbf
 
@@ -256,16 +289,19 @@ def skip(cadena, indice):
 
     fbf = 0
     evaluar = ['skip']
+    restante = len(cadena) - (indice + 1)
 
-    for i in range(1, 2):
-        sub_indice = indice + i
-        ins = cadena[sub_indice]
-        evaluar.append(ins)
+    if restante >= 1:
+        for i in range(1, 2):
+            sub_indice = indice + i
+            ins = cadena[sub_indice]
+            evaluar.append(ins)
 
-    sintaxis = ['skip', ')']
+        sintaxis = ['skip', ')']
 
-    if evaluar[1] == sintaxis[1]:
-        fbf = 1
+        if len(evaluar) == 2:
+            if evaluar[1] == sintaxis[1]:
+                fbf = 1
 
     return fbf
 
@@ -360,7 +396,9 @@ def lectura(archivo):
 def implementar(archivo):
 
     cadena = lectura(archivo)
-    sintaxis = 0
+    sintaxis = []
+    contar = 0
+    parentesis = 0
     parentesisI = 0
     parentesisD = 0
     indice = 0
@@ -372,40 +410,52 @@ def implementar(archivo):
             parentesisD += 1
         elif cadena[indice] == 'defvar':
             retorno = defvar(cadena, indice)
-            retorno[0] = sintaxis 
+            sintaxis.append(retorno)
         elif cadena[indice] == '=':
             retorno = equals(cadena, indice)
-            retorno[0] = sintaxis
+            sintaxis.append(retorno)
         elif cadena[indice] == 'move':
             retorno = move(cadena, indice)
-            retorno[0] = sintaxis
+            sintaxis.append(retorno)
         elif cadena[indice] == 'turn':
             retorno = turn(cadena, indice)
-            retorno[0] = sintaxis
+            sintaxis.append(retorno)
         elif cadena[indice] == 'face':
             retorno = face(cadena, indice)
-            retorno[0] = sintaxis
+            sintaxis.append(retorno)
         elif cadena[indice] == 'put':
             retorno = put(cadena, indice)
-            retorno[0] = sintaxis
+            sintaxis.append(retorno)
         elif cadena[indice] == 'pick':
             retorno = pick(cadena, indice)
-            retorno[0] = sintaxis
+            sintaxis.append(retorno)
         elif cadena[indice] == 'move-dir':
             retorno = move_dir(cadena, indice)
-            retorno[0] = sintaxis
+            sintaxis.append(retorno)
         elif cadena[indice] == 'run-dirs':
             retorno = run_dirs(cadena, indice)
-            retorno[0] = sintaxis
+            sintaxis.append(retorno)
         elif cadena[indice] == 'move-face':
             retorno = move_face(cadena, indice)
-            retorno[0] = sintaxis
+            sintaxis.append(retorno)
         elif cadena[indice] == 'skip':
             retorno = skip(cadena, indice)
-            retorno[0] = sintaxis
+            sintaxis.append(retorno)
+
+        indice += 1
 
     if parentesisI == parentesisD:
+        parentesis = 1
+
+    for elemento in sintaxis:
+        contar += elemento
+
+    if contar == len(sintaxis):
         sintaxis = 1
+    else:
+        sintaxis = 0
+
+    sintaxis *= parentesis
 
     if sintaxis == 0:
         mensaje = 'Hay un problema de sintaxis en el código'
