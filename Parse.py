@@ -13,14 +13,14 @@ numeros = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
 abecedario = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h',
               'i', 'j', 'k', 'l', 'm', 'n', 'ñ', 'o',
               'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
-object = ['Ballons', 'Chips']
+objects = ['Ballons', 'Chips']
 
 
 # Este es el alfabeto que contiene los elementos terminales del lenguaje
 
 
 alfabeto = [estructuras_control, comandos, condiciones,
-            operaciones, turn_to, face_to, dir, numeros, abecedario, object]
+            operaciones, turn_to, face_to, dir, numeros, abecedario, objects]
 
 
 # Estas son las reglas de producción del lenguaje
@@ -48,74 +48,226 @@ def defvar(cadena, indice):
     return fbf, nombre_variable
 
 
-def equals(cadena):
+def equals(cadena, indice):
 
-    sintaxis = ['=', alfabeto, numeros]
+    fbf = 0
+    evaluar = ['=']
 
-    return sintaxis
+    for i in range(1, 4):
+        sub_indice = indice + i
+        ins = cadena[sub_indice]
+        evaluar.append(ins)
 
+    nombre_variable = evaluar[1]
 
-def move(cadena):
+    sintaxis = ['=', nombre_variable, numeros, ')']
 
-    sintaxis = ['move', numeros]
+    if evaluar[3] == sintaxis[3]:
+        for numero in numeros:
+            if numero in evaluar[2]:
+                fbf = 1
 
-    return sintaxis
-
-
-def turn(cadena):
-
-    sintaxis = ['turn', ':', turn_to]
-
-    return sintaxis
-
-
-def face(cadena):
-
-    sintaxis = ['face', ':', face_to]
-
-    return sintaxis
+    return fbf, nombre_variable
 
 
-def put(cadena):
+def move(cadena, indice):
 
-    sintaxis = ['put', object, numeros]
+    fbf = 0
+    evaluar = ['move']
 
-    return sintaxis
+    for i in range(1, 3):
+        sub_indice = indice + i
+        ins = cadena[sub_indice]
+        evaluar.append(ins)
 
+    sintaxis = ['move', numeros, ')']
 
-def pick(cadena):
+    if evaluar[2] == sintaxis[2]:
+        for numero in numeros:
+            if numero in evaluar[1]:
+                fbf = 1
 
-    sintaxis = ['pick', object, numeros]
-
-    return sintaxis
-
-
-def move_dir(cadena):
-
-    sintaxis = ['move-dir', numeros, ':', dir]
-
-    return sintaxis
-
-
-def run_dirs(cadena):
-
-    sintaxis = ['run-dirs', ':', dir]
-
-    return sintaxis
+    return fbf
 
 
-def move_face(cadena):
+def turn(cadena, indice):
 
-    sintaxis = ['move-face', numeros, ':', face_to]
+    fbf = 0
+    evaluar = ['turn']
 
-    return sintaxis
+    for i in range(1, 4):
+        sub_indice = indice + i
+        ins = cadena[sub_indice]
+        evaluar.append(ins)
+
+    sintaxis = ['turn', ':', turn_to, ')']
+
+    if evaluar[1] == sintaxis[1]:
+        if evaluar[3] == sintaxis[3]:
+            for turn in turn_to:
+                if turn in evaluar[2]:
+                    fbf = 1
+
+    return fbf
 
 
-def skip(cadena):
+def face(cadena, indice):
 
-    sintaxis = ['skip']
+    fbf = 0
+    evaluar = ['face']
 
-    return sintaxis
+    for i in range(1, 4):
+        sub_indice = indice + i
+        ins = cadena[sub_indice]
+        evaluar.append(ins)
+
+    sintaxis = ['face', ':', face_to, ')']
+
+    if evaluar[1] == sintaxis[1]:
+        if evaluar[3] == sintaxis[3]:
+            for turn in face_to:
+                if turn in evaluar[2]:
+                    fbf = 1
+
+    return fbf
+
+
+def put(cadena, indice):
+
+    fbf = 0
+    evaluar = ['put']
+
+    for i in range(1, 4):
+        sub_indice = indice + i
+        ins = cadena[sub_indice]
+        evaluar.append(ins)
+
+    sintaxis = ['put', objects, numeros, ')']
+
+    if evaluar[3] == sintaxis[3]:
+        for element in objects:
+            if evaluar[1] == element:
+                for numero in numeros:
+                    if numero in evaluar[2]:
+                        fbf = 1
+                        break
+            break
+
+    return fbf
+
+
+def pick(cadena, indice):
+
+    fbf = 0
+    evaluar = ['pick']
+
+    for i in range(1, 4):
+        sub_indice = indice + i
+        ins = cadena[sub_indice]
+        evaluar.append(ins)
+
+    sintaxis = ['pick', objects, numeros, ')']
+
+    if evaluar[3] == sintaxis[3]:
+        for element in objects:
+            if evaluar[1] == element:
+                for numero in numeros:
+                    if numero in evaluar[2]:
+                        fbf = 1
+                        break
+            break
+
+    return fbf
+
+
+def move_dir(cadena, indice):
+
+    fbf = 0
+    evaluar = ['move-dir']
+
+    for i in range(1, 5):
+        sub_indice = indice + i
+        ins = cadena[sub_indice]
+        evaluar.append(ins)
+
+    sintaxis = ['move-dir', numeros, ':', dir, ')']
+
+    if evaluar[2] == sintaxis[2]:
+        if evaluar[4] == sintaxis[4]:
+            for numero in numeros:
+                if numero in evaluar[1]:
+                    for element in dir:
+                        if evaluar[3] == element:
+                            fbf = 1
+                            break
+                break
+
+    return fbf
+
+
+def run_dirs(cadena, indice):
+
+    fbf = 0
+    evaluar = ['run-dirs']
+
+    for i in range(1, 4):
+        sub_indice = indice + i
+        ins = cadena[sub_indice]
+        evaluar.append(ins)
+
+    sintaxis = ['run-dirs', ':', dir, ')']
+
+    if evaluar[1] == sintaxis[1]:
+        if evaluar[3] == sintaxis[3]:
+            for element in dir:
+                if evaluar[2] == element:
+                    fbf = 1
+                    break
+
+    return fbf
+
+
+def move_face(cadena, indice):
+
+    fbf = 0
+    evaluar = ['move-dir']
+
+    for i in range(1, 5):
+        sub_indice = indice + i
+        ins = cadena[sub_indice]
+        evaluar.append(ins)
+
+    sintaxis = ['move-face', numeros, ':', face_to, ')']
+
+    if evaluar[2] == sintaxis[2]:
+        if evaluar[4] == sintaxis[4]:
+            for numero in numeros:
+                if numero in evaluar[1]:
+                    for element in face_to:
+                        if evaluar[3] == element:
+                            fbf = 1
+                            break
+                break
+
+    return fbf
+
+
+def skip(cadena, indice):
+
+    fbf = 0
+    evaluar = ['skip']
+
+    for i in range(1, 2):
+        sub_indice = indice + i
+        ins = cadena[sub_indice]
+        evaluar.append(ins)
+
+    sintaxis = ['skip', ')']
+
+    if evaluar[1] == sintaxis[1]:
+        fbf = 1
+
+    return fbf
 
 
 # Estas son las estructuras de control
