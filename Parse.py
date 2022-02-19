@@ -94,6 +94,7 @@ def _p(cadena):
 
 def lectura(archivo):
 
+    with open(str(archivo)) as file:
     file = open(str(archivo) + 'r')
     cadena = []
     lineas = file.read().splitlines()
