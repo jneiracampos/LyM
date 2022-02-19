@@ -99,7 +99,6 @@ def _p(cadena):
 def lectura(archivo):
 
     file = open(str(archivo) + 'r')
-
     cadena = []
     lineas = file.read().splitlines()
     for linea in lineas:
@@ -150,7 +149,6 @@ def lectura(archivo):
                     cadena.append(')')
 
     file.close()
-
     return cadena
 
 
