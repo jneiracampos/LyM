@@ -25,10 +25,6 @@ alfabeto = [estructuras_control, comandos, condiciones,
 # Estas son las reglas de producción del lenguaje
 
 
-def parentesis(cadena):
-    pass
-
-
 def defvar(cadena):
     pass
 
@@ -149,12 +145,22 @@ def lectura(archivo):
                     cadena.append(')')
 
     file.close()
+
     return cadena
 
 
-def implementar(cadena):
+def implementar(archivo):
 
-    if alfabeto[1][8] in cadena:
-        defvar(cadena)
-    if alfabeto[3][0]:
-        equals(cadena)
+    cadena = lectura(archivo)
+    comandos = []
+    parentesisI = 0
+    parentesisD = 0
+    indice = 0
+
+    while indice < len(cadena):
+        if cadena[indice] == '(':
+            parentesisI += 1
+        elif cadena[indice] == ')':
+            parentesisD += 1
+        if parentesisI == parentesisD:
+            comandos.append()
