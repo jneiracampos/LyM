@@ -4,7 +4,7 @@
 estructuras_control = ['if', 'loop', 'repeat', 'not']
 comandos = ['move', 'turn', 'face', 'put', 'pick',
             'move-dir', 'run-dirs', 'move-face', 'defvar', 'skip', 'defun']
-condiciones = ['facing-p', 'can-put-p', 'can-pick-p', 'can-move-p', '-p']
+condiciones = ['-p', 'not']
 operaciones = ['=', '(', ')', ':']
 turn_to = ['left', 'right', 'around']
 face_to = ['north', 'east', 'south', 'west']
@@ -13,64 +13,120 @@ numeros = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
 abecedario = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h',
               'i', 'j', 'k', 'l', 'm', 'n', 'ñ', 'o',
               'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
+object = ['Ballons', 'Chips']
 
 
 # Este es el alfabeto que contiene los elementos terminales del lenguaje
 
 
 alfabeto = [estructuras_control, comandos, condiciones,
-            operaciones, turn_to, face_to, dir, numeros, abecedario]
+            operaciones, turn_to, face_to, dir, numeros, abecedario, object]
 
 
 # Estas son las reglas de producción del lenguaje
 
 
-def defvar(cadena):
-    pass
+def defvar(cadena, indice):
+
+    fbf = 0
+    evaluar = ['defvar']
+
+    for i in range(1, 4):
+        sub_indice = indice + i
+        ins = cadena[sub_indice]
+        evaluar.append(ins)
+
+    nombre_variable = evaluar[1]
+
+    sintaxis = ['defvar', nombre_variable, numeros, ')']
+
+    if evaluar[3] == sintaxis[3]:
+        for numero in numeros:
+            if numero in evaluar[2]:
+                fbf = 1
+
+    return fbf, nombre_variable
 
 
 def equals(cadena):
-    pass
+
+    sintaxis = ['=', alfabeto, numeros]
+
+    return sintaxis
 
 
 def move(cadena):
-    pass
+
+    sintaxis = ['move', numeros]
+
+    return sintaxis
 
 
 def turn(cadena):
-    pass
+
+    sintaxis = ['turn', ':', turn_to]
+
+    return sintaxis
 
 
 def face(cadena):
-    pass
+
+    sintaxis = ['face', ':', face_to]
+
+    return sintaxis
 
 
 def put(cadena):
-    pass
+
+    sintaxis = ['put', object, numeros]
+
+    return sintaxis
 
 
 def pick(cadena):
-    pass
+
+    sintaxis = ['pick', object, numeros]
+
+    return sintaxis
 
 
 def move_dir(cadena):
-    pass
+
+    sintaxis = ['move-dir', numeros, ':', dir]
+
+    return sintaxis
 
 
 def run_dirs(cadena):
-    pass
+
+    sintaxis = ['run-dirs', ':', dir]
+
+    return sintaxis
 
 
 def move_face(cadena):
-    pass
+
+    sintaxis = ['move-face', numeros, ':', face_to]
+
+    return sintaxis
 
 
 def skip(cadena):
-    pass
+
+    sintaxis = ['skip']
+
+    return sintaxis
 
 
-def if_condicional(cadena):
-    pass
+# Estas son las estructuras de control
+
+
+def if_condicional(elemento, comando, comando1):
+
+    sintaxis = ['if', '(', condiciones, ')', '(',
+                comando, ')', '(', comando1, ')']
+
+    return sintaxis
 
 
 def loop(cadena):
@@ -152,7 +208,7 @@ def lectura(archivo):
 def implementar(archivo):
 
     cadena = lectura(archivo)
-    comandos = []
+    sintaxis = 0
     parentesisI = 0
     parentesisD = 0
     indice = 0
@@ -162,5 +218,10 @@ def implementar(archivo):
             parentesisI += 1
         elif cadena[indice] == ')':
             parentesisD += 1
-        if parentesisI == parentesisD:
-            comandos.append()
+        elif cadena[indice] == 'defvar':
+            defvar(cadena, indice)
+
+    if parentesisI == parentesisD:
+        sintaxis = 1
+
+    return sintaxis
