@@ -314,9 +314,11 @@ def if_condicional(cadena, indice):
         if sub_indice < len(cadena):
             ins = cadena[sub_indice]
             evaluar.append(ins)
-        if ins == '(':
-            parentesisI += 1
-        elif ins == ')':
+            if ins == '(':
+                parentesisI += 1
+            elif ins == ')':
+                parentesisD += 1
+        else:
             parentesisD += 1
 
     while i < len(evaluar):
@@ -393,12 +395,14 @@ def _p(cadena, indice):
 
     while (parentesisI != parentesisD):
         sub_indice += 1
-        ins = cadena[sub_indice]
-        evaluar.append(ins)
-
-        if ins == '(':
-            parentesisI += 1
-        elif ins == ')':
+        if sub_indice < len(cadena):
+            ins = cadena[sub_indice]
+            evaluar.append(ins)
+            if ins == '(':
+                parentesisI += 1
+            elif ins == ')':
+                parentesisD += 1
+        else:
             parentesisD += 1
 
     for element in evaluar:
