@@ -304,60 +304,63 @@ def if_condicional(cadena, indice):
     evaluar = ['if']
     lista = []
     contar = 0
+    i = 0
     parentesisI = 1
     parentesisD = 0
     sub_indice = indice
 
     while (parentesisI != parentesisD):
         sub_indice += 1
-        ins = cadena[sub_indice]
-        evaluar.append(ins)
-
+        if sub_indice < len(cadena):
+            ins = cadena[sub_indice]
+            evaluar.append(ins)
         if ins == '(':
             parentesisI += 1
         elif ins == ')':
             parentesisD += 1
 
-    for element in evaluar:
-        if element == 'defvar':
-            retorno = defvar(cadena, indice)
+    while i < len(evaluar):
+        if evaluar[i] == 'defvar':
+            retorno = defvar(evaluar, i)
             lista.append(retorno)
-        elif element == '=':
-            retorno = equals(cadena, indice)
+        elif evaluar[i] == '=':
+            retorno = equals(evaluar, i)
             lista.append(retorno)
-        elif element == 'move':
-            retorno = move(cadena, indice)
+        elif evaluar[i] == 'move':
+            retorno = move(evaluar, i)
             lista.append(retorno)
-        elif element == 'turn':
-            retorno = turn(cadena, indice)
+        elif evaluar[i] == 'turn':
+            retorno = turn(evaluar, i)
             lista.append(retorno)
-        elif element == 'face':
-            retorno = face(cadena, indice)
+        elif evaluar[i] == 'face':
+            retorno = face(evaluar, i)
             lista.append(retorno)
-        elif element == 'put':
-            retorno = put(cadena, indice)
+        elif evaluar[i] == 'put':
+            retorno = put(evaluar, i)
             lista.append(retorno)
-        elif element == 'pick':
-            retorno = pick(cadena, indice)
+        elif evaluar[i] == 'pick':
+            retorno = pick(evaluar, i)
             lista.append(retorno)
-        elif element == 'move-dir':
-            retorno = move_dir(cadena, indice)
+        elif evaluar[i] == 'move-dir':
+            retorno = move_dir(evaluar, i)
             lista.append(retorno)
-        elif element == 'run-dirs':
-            retorno = run_dirs(cadena, indice)
+        elif evaluar[i] == 'run-dirs':
+            retorno = run_dirs(evaluar, i)
             lista.append(retorno)
-        elif element == 'move-face':
-            retorno = move_face(cadena, indice)
+        elif evaluar[i] == 'move-face':
+            retorno = move_face(evaluar, i)
             lista.append(retorno)
-        elif element == 'skip':
-            retorno = skip(cadena, indice)
+        elif evaluar[i] == 'skip':
+            retorno = skip(evaluar, i)
             lista.append(retorno)
-        elif element == 'not':
-            retorno = _p(cadena, indice)
+        elif evaluar[i] == 'not':
+            retorno = _p(cadena, i)
             lista.append(retorno)
-        elif '-p' in element:
-            retorno = _p(cadena, indice)
+        elif '-p' in evaluar[i]:
+            retorno = _p(cadena, i)
             lista.append(retorno)
+
+        i += 1
 
     for element in lista:
         contar += element
