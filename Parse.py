@@ -12,7 +12,7 @@ numeros = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
 abecedario = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h',
               'i', 'j', 'k', 'l', 'm', 'n', 'ñ', 'o',
               'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
-objects = ['Ballons', 'Chips']
+objects = ['balloons', 'chips']
 
 
 # Este es el alfabeto que contiene los elementos terminales del lenguaje
@@ -153,24 +153,23 @@ def put(cadena, indice):
 
     fbf = 0
     evaluar = ['put']
-    sintaxis = ['put', objects, numeros, ')']
+    sintaxis = ['put', ':', objects, abecedario, ')']
     restante = len(cadena) - (indice + 1)
 
-    if restante >= 3:
-        for i in range(1, 4):
+    if restante >= 4:
+        for i in range(1, 5):
             sub_indice = indice + i
             ins = cadena[sub_indice]
             evaluar.append(ins)
 
-        if len(evaluar) == 4:
-            if evaluar[3] == sintaxis[3]:
-                for element in objects:
-                    if evaluar[1] == element:
-                        for numero in numeros:
-                            if numero in evaluar[2]:
+        if len(evaluar) == 5:
+            if evaluar[1] == sintaxis[1]:
+                if evaluar[4] == sintaxis[4]:
+                    if ('balloons' in evaluar[2]) or ('chips' in evaluar[2]):
+                        for letra in abecedario:
+                            if letra in evaluar[3]:
                                 fbf = 1
                                 break
-                    break
 
     return fbf
 
@@ -179,24 +178,25 @@ def pick(cadena, indice):
 
     fbf = 0
     evaluar = ['pick']
-    sintaxis = ['pick', objects, numeros, ')']
+    sintaxis = ['pick', ':', objects, abecedario, ')']
     restante = len(cadena) - (indice + 1)
 
-    if restante >= 3:
-        for i in range(1, 4):
+    if restante >= 4:
+        for i in range(1, 5):
             sub_indice = indice + i
             ins = cadena[sub_indice]
             evaluar.append(ins)
 
-        if len(evaluar) == 4:
-            if evaluar[3] == sintaxis[3]:
-                for element in objects:
-                    if evaluar[1] == element:
-                        for numero in numeros:
-                            if numero in evaluar[2]:
-                                fbf = 1
-                                break
-                    break
+        if len(evaluar) == 5:
+            if evaluar[1] == sintaxis[1]:
+                if evaluar[4] == sintaxis[4]:
+                    for element in objects:
+                        if evaluar[2] == element:
+                            for letra in abecedario:
+                                if letra in evaluar[3]:
+                                    fbf = 1
+                                    break
+                        break
 
     return fbf
 
@@ -534,6 +534,9 @@ def repeat(cadena, indice):
         elif '-p' in evaluar[i]:
             retorno = _p(cadena, i)
             lista.append(retorno)
+        elif evaluar[i] == 'if':
+            retorno = if_condicional(evaluar, i)
+            lista.append(retorno)
 
         i += 1
 
@@ -613,6 +616,9 @@ def defun(cadena, indice):
             lista.append(retorno)
         elif '-p' in evaluar[i]:
             retorno = _p(cadena, i)
+            lista.append(retorno)
+        elif evaluar[i] == 'if':
+            retorno = if_condicional(evaluar, i)
             lista.append(retorno)
 
         i += 1
