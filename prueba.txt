@@ -16,6 +16,7 @@
 (( move one )
 ( goend ) )
 ( skip ) ) )
+(run-dirs (:left :up :left :down :right) )
 
 
 

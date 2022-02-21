@@ -232,22 +232,38 @@ def run_dirs(cadena, indice):
 
     fbf = 0
     evaluar = ['run-dirs']
-    sintaxis = ['run-dirs', ':', dir, ')']
-    restante = len(cadena) - (indice + 1)
+    contar = 0
+    contar1 = 0
+    i = 0
+    parentesisI = 1
+    parentesisD = 0
+    sub_indice = indice
 
-    if restante >= 3:
-        for i in range(1, 4):
-            sub_indice = indice + i
+    while (parentesisI != parentesisD):
+        sub_indice += 1
+        if sub_indice < len(cadena):
             ins = cadena[sub_indice]
             evaluar.append(ins)
+            if ins == '(':
+                parentesisI += 1
+            elif ins == ')':
+                parentesisD += 1
+        else:
+            parentesisD += 1
 
-        if len(evaluar) == 4:
-            if evaluar[1] == sintaxis[1]:
-                if evaluar[3] == sintaxis[3]:
-                    for element in dir:
-                        if evaluar[2] == element:
-                            fbf = 1
-                            break
+    while i < len(evaluar):
+        for element in dir:
+            if evaluar[i] == element:
+                fbf = 1
+                contar += 1
+                break
+        if evaluar[i] == ':':
+            contar1 += 1
+
+        i += 1
+
+    if contar != contar:
+        fbf = 0
 
     return fbf
 
