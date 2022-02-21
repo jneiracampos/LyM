@@ -373,16 +373,56 @@ def if_condicional(cadena, indice):
     return fbf
 
 
-def loop(cadena):
+def loop(cadena, indice):
+
+                        
+
+    return fbf
+
+
+def repeat(cadena, indice):
+    fbf = 0
+    evaluar = ['repeat']
+    sintaxis = ['repeat', numeros, comandos, ")"]
+    restante = len(cadena) - (indice + 1)
+
+    if restante >= 3:
+        for i in range(1, 4):
+            sub_indice = indice + i
+            ins = cadena[sub_indice]
+            evaluar.append(ins)
+
+        nombre_variable = evaluar[1]
+        sintaxis = ['repeat', numeros, comandos, ")"]
+
+        if len(evaluar) == 4:
+            if evaluar[2] in numeros:
+                if evaluar[3] in comandos:
+                    fbf = 1
+                             
     pass
 
 
-def repeat(cadena):
-    pass
+def defun(cadena, indice):
+    fbf = 0
+    evaluar = ['defun']
+    restante = len(cadena) - (indice + 1)
 
+    if restante >= 2:
+        for i in range(1, 3):
+            sub_indice = indice + i
+            ins = cadena[sub_indice]
+            evaluar.append(ins)
 
-def defun(cadena):
-    pass
+        nombre_variable = evaluar[1]
+        sintaxis = ['defun', (_p(cadena, indice)), ")"]
+
+        if len(evaluar) == 3:
+            if (_p(cadena, indice)) == 1: 
+                fbf = 1
+        
+
+    return fbf
 
 
 def _p(cadena, indice):
