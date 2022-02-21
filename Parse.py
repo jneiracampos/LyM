@@ -571,8 +571,8 @@ def defun(cadena, indice):
     for letra in abecedario:
         if letra in evaluar[1]:
             lista.append(1)
-        if letra in evaluar[3]:
-            lista.append(1)
+        else:
+            lista.append(0)
 
     while i < len(evaluar):
         if evaluar[i] == 'defvar':
