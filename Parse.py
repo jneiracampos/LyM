@@ -374,8 +374,75 @@ def if_condicional(cadena, indice):
 
 
 def loop(cadena, indice):
+    fbf = 0
+    evaluar = ['loop']
+    lista = []
+    contar = 0
+    i = 0
+    parentesisI = 1
+    parentesisD = 0
+    sub_indice = indice
 
-                        
+    while (parentesisI != parentesisD):
+        sub_indice += 1
+        if sub_indice < len(cadena):
+            ins = cadena[sub_indice]
+            evaluar.append(ins)
+            if ins == '(':
+                parentesisI += 1
+            elif ins == ')':
+                parentesisD += 1
+        else:
+            parentesisD += 1
+
+    while i < len(evaluar):
+        if evaluar[i] == 'defvar':
+            retorno = defvar(evaluar, i)
+            lista.append(retorno)
+        elif evaluar[i] == '=':
+            retorno = equals(evaluar, i)
+            lista.append(retorno)
+        elif evaluar[i] == 'move':
+            retorno = move(evaluar, i)
+            lista.append(retorno)
+        elif evaluar[i] == 'turn':
+            retorno = turn(evaluar, i)
+            lista.append(retorno)
+        elif evaluar[i] == 'face':
+            retorno = face(evaluar, i)
+            lista.append(retorno)
+        elif evaluar[i] == 'put':
+            retorno = put(evaluar, i)
+            lista.append(retorno)
+        elif evaluar[i] == 'pick':
+            retorno = pick(evaluar, i)
+            lista.append(retorno)
+        elif evaluar[i] == 'move-dir':
+            retorno = move_dir(evaluar, i)
+            lista.append(retorno)
+        elif evaluar[i] == 'run-dirs':
+            retorno = run_dirs(evaluar, i)
+            lista.append(retorno)
+        elif evaluar[i] == 'move-face':
+            retorno = move_face(evaluar, i)
+            lista.append(retorno)
+        elif evaluar[i] == 'skip':
+            retorno = skip(evaluar, i)
+            lista.append(retorno)
+        elif evaluar[i] == 'not':
+            retorno = _p(cadena, i)
+            lista.append(retorno)
+        elif '-p' in evaluar[i]:
+            retorno = _p(cadena, i)
+            lista.append(retorno)
+
+        i += 1
+
+    for element in lista:
+        contar += element
+
+    if contar == len(lista):
+        fbf = 1
 
     return fbf
 
@@ -383,44 +450,158 @@ def loop(cadena, indice):
 def repeat(cadena, indice):
     fbf = 0
     evaluar = ['repeat']
-    sintaxis = ['repeat', numeros, comandos, ")"]
-    restante = len(cadena) - (indice + 1)
+    lista = []
+    contar = 0
+    i = 0
+    parentesisI = 1
+    parentesisD = 0
+    sub_indice = indice
 
-    if restante >= 3:
-        for i in range(1, 4):
-            sub_indice = indice + i
+    while (parentesisI != parentesisD):
+        sub_indice += 1
+        if sub_indice < len(cadena):
             ins = cadena[sub_indice]
             evaluar.append(ins)
+            if ins == '(':
+                parentesisI += 1
+            elif ins == ')':
+                parentesisD += 1
+        else:
+            parentesisD += 1
 
-        nombre_variable = evaluar[1]
-        sintaxis = ['repeat', numeros, comandos, ")"]
+    for numero in numeros:
+        if evaluar[1] == numero:
+            lista.append(1)
+            break
 
-        if len(evaluar) == 4:
-            if evaluar[2] in numeros:
-                if evaluar[3] in comandos:
-                    fbf = 1
-                             
-    pass
+    while i < len(evaluar):
+        if evaluar[i] == 'defvar':
+            retorno = defvar(evaluar, i)
+            lista.append(retorno)
+        elif evaluar[i] == '=':
+            retorno = equals(evaluar, i)
+            lista.append(retorno)
+        elif evaluar[i] == 'move':
+            retorno = move(evaluar, i)
+            lista.append(retorno)
+        elif evaluar[i] == 'turn':
+            retorno = turn(evaluar, i)
+            lista.append(retorno)
+        elif evaluar[i] == 'face':
+            retorno = face(evaluar, i)
+            lista.append(retorno)
+        elif evaluar[i] == 'put':
+            retorno = put(evaluar, i)
+            lista.append(retorno)
+        elif evaluar[i] == 'pick':
+            retorno = pick(evaluar, i)
+            lista.append(retorno)
+        elif evaluar[i] == 'move-dir':
+            retorno = move_dir(evaluar, i)
+            lista.append(retorno)
+        elif evaluar[i] == 'run-dirs':
+            retorno = run_dirs(evaluar, i)
+            lista.append(retorno)
+        elif evaluar[i] == 'move-face':
+            retorno = move_face(evaluar, i)
+            lista.append(retorno)
+        elif evaluar[i] == 'skip':
+            retorno = skip(evaluar, i)
+            lista.append(retorno)
+        elif evaluar[i] == 'not':
+            retorno = _p(cadena, i)
+            lista.append(retorno)
+        elif '-p' in evaluar[i]:
+            retorno = _p(cadena, i)
+            lista.append(retorno)
+
+        i += 1
+
+    for element in lista:
+        contar += element
+
+    if contar == len(lista):
+        fbf = 1
+
+    return fbf
 
 
 def defun(cadena, indice):
     fbf = 0
     evaluar = ['defun']
-    restante = len(cadena) - (indice + 1)
+    lista = []
+    contar = 0
+    i = 0
+    parentesisI = 1
+    parentesisD = 0
+    sub_indice = indice
 
-    if restante >= 2:
-        for i in range(1, 3):
-            sub_indice = indice + i
+    while (parentesisI != parentesisD):
+        sub_indice += 1
+        if sub_indice < len(cadena):
             ins = cadena[sub_indice]
             evaluar.append(ins)
+            if ins == '(':
+                parentesisI += 1
+            elif ins == ')':
+                parentesisD += 1
+        else:
+            parentesisD += 1
 
-        nombre_variable = evaluar[1]
-        sintaxis = ['defun', (_p(cadena, indice)), ")"]
+    for letra in abecedario:
+        if letra in evaluar[1]:
+            lista.append(1)
+        if letra in evaluar[3]:
+            lista.append(1)
 
-        if len(evaluar) == 3:
-            if (_p(cadena, indice)) == 1: 
-                fbf = 1
-        
+    while i < len(evaluar):
+        if evaluar[i] == 'defvar':
+            retorno = defvar(evaluar, i)
+            lista.append(retorno)
+        elif evaluar[i] == '=':
+            retorno = equals(evaluar, i)
+            lista.append(retorno)
+        elif evaluar[i] == 'move':
+            retorno = move(evaluar, i)
+            lista.append(retorno)
+        elif evaluar[i] == 'turn':
+            retorno = turn(evaluar, i)
+            lista.append(retorno)
+        elif evaluar[i] == 'face':
+            retorno = face(evaluar, i)
+            lista.append(retorno)
+        elif evaluar[i] == 'put':
+            retorno = put(evaluar, i)
+            lista.append(retorno)
+        elif evaluar[i] == 'pick':
+            retorno = pick(evaluar, i)
+            lista.append(retorno)
+        elif evaluar[i] == 'move-dir':
+            retorno = move_dir(evaluar, i)
+            lista.append(retorno)
+        elif evaluar[i] == 'run-dirs':
+            retorno = run_dirs(evaluar, i)
+            lista.append(retorno)
+        elif evaluar[i] == 'move-face':
+            retorno = move_face(evaluar, i)
+            lista.append(retorno)
+        elif evaluar[i] == 'skip':
+            retorno = skip(evaluar, i)
+            lista.append(retorno)
+        elif evaluar[i] == 'not':
+            retorno = _p(cadena, i)
+            lista.append(retorno)
+        elif '-p' in evaluar[i]:
+            retorno = _p(cadena, i)
+            lista.append(retorno)
+
+        i += 1
+
+    for element in lista:
+        contar += element
+
+    if contar == len(lista):
+        fbf = 1
 
     return fbf
 
