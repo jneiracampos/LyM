@@ -534,9 +534,6 @@ def repeat(cadena, indice):
         elif '-p' in evaluar[i]:
             retorno = _p(cadena, i)
             lista.append(retorno)
-        elif evaluar[i] == 'if':
-            retorno = if_condicional(evaluar, i)
-            lista.append(retorno)
 
         i += 1
 
