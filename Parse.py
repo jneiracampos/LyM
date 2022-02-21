@@ -94,6 +94,10 @@ def move(cadena, indice):
                     if numero in evaluar[1]:
                         fbf = 1
                         break
+                for letra in abecedario:
+                    if letra in evaluar[1]:
+                        fbf = 1
+                        break
 
     return fbf
 
@@ -627,11 +631,10 @@ def _p(cadena, indice):
             parentesisD += 1
 
     for element in evaluar:
-        for condicion in condiciones:
-            if condicion in element:
-                fbf = 1
-            else:
-                fbf = 0
+        if '-p' in element:
+            fbf = 1
+        elif element == 'not':
+            fbf = 1
 
     return fbf
 
@@ -641,7 +644,7 @@ def _p(cadena, indice):
 
 def lectura(archivo):
 
-    file = open(str(archivo) + 'r')
+    file = open(str(archivo), 'r')
     cadena = []
     lineas = file.read().splitlines()
     for linea in lineas:
@@ -744,6 +747,15 @@ def implementar(archivo):
         elif cadena[indice] == 'skip':
             retorno = skip(cadena, indice)
             sintaxis.append(retorno)
+        elif cadena[indice] == 'if':
+            retorno = if_condicional(cadena, indice)
+            sintaxis.append(retorno)
+        elif cadena[indice] == 'loop':
+            retorno = loop(cadena, indice)
+            sintaxis.append(retorno)
+        elif cadena[indice] == 'repeat':
+            retorno = repeat(cadena, indice)
+            sintaxis.append(retorno)
 
         indice += 1
 
@@ -766,3 +778,7 @@ def implementar(archivo):
         mensaje = 'El código se compiló correctamente'
 
     return mensaje
+
+
+archivo = 'C:/Users/neira/Desktop/LyM/prueba.txt'
+print(implementar(archivo))

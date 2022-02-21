@@ -1,0 +1,22 @@
+( defun blocked-p ()
+( not ( can-move-p : north ) ) )
+
+( if ( blocked-p ) ( move 1) ( skip ) )
+(
+( if ( blocked-p ) ( move 1) ( skip ) )
+( turn :left )
+ )
+(defvar rotate 3)
+( defun foo ( c p )
+( drop c )
+( free p )
+( move rotate ) )
+( defun goend ()
+( i f ( not blocked - p )
+(( move one )
+( goend ) )
+( skip ) ) )
+
+
+
+
